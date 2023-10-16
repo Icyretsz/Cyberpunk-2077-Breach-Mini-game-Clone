@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Cyberpunk 2077 Breaching Mini game</title>
+    <link rel="stylesheet" href="./style.css"/>
+</head>
+
+<body>
+
+<div class="section-left">
+    <div class="time-container">
+        <div class="time-remaining">BREACH TIME REMAINING</div>
+        <div class="timer">5:00</div>
+    </div>
+</div>
+
+<div class="section-right">
+    <div class="buffer">BUFFER</div>
+    <div class="buffer-container"></div>
+    <div class="sequence-main">
+        <div class="sequence">SEQUENCE REQUIRED TO UPLOAD</div>
+        <div class="sequence-container">
+            <div class="sequence-1"></div>
+            <div class="sequence-2"></div>
+            <div class="sequence-3"></div>
+        </div>
+    </div>
+</div>
+
+<button id="startBtn">START</button>
+<button id="resetBtn">RESET</button>
+
+</body>
+
+<script>
+    const startBTN = document.querySelector("#startBtn");
+    const resetBTN = document.querySelector("#resetBtn");
+    const bufferContainer = document.querySelector(".buffer-container");
+    const sequence1 = document.querySelector(".sequence-1");
+    const sequence2 = document.querySelector(".sequence-2");
+    const sequence3 = document.querySelector(".sequence-3");
+    const sequenceContainer = document.querySelector(".sequence-container");
+
+    function randomTwoDigitHexArray(count) {
+        const hexChars = "0123456789ABCDEF";
+        let hexArray = [];
+
+        for (let j = 0; j < count; j++) {
+            let hex = "";
+            for (let i = 0; i < 2; i++) {
+                hex += hexChars[Math.floor(Math.random() * 16)];
+            }
+            hexArray.push(hex);
+        }
+        return hexArray;
+    }
+
+    function firstSequenceGenerator() {
+        let size = Math.floor(Math.random() * 2) + 2;
+        let hexArray = randomTwoDigitHexArray(size);
+        return hexArray;
+    }
+
+    function firstSequenceFill() {
+        let hexArray = firstSequenceGenerator();
+        for (let i = 0; i < hexArray.length; i++) {
+            const hex = document.createElement('p');
+            sequence1.appendChild(hex);
+            hex.textContent = `${hexArray[i]}`;
+        }
+        return hexArray.length;
+    }
+
+    function secondSequenceGenerator() {
+        let size = Math.floor(Math.random() * 3) + 2;
+        let hexArray = randomTwoDigitHexArray(size);
+        return hexArray;
+    }
+
+    function secondSequenceFill() {
+        let hexArray = secondSequenceGenerator();
+        for (let i = 0; i < hexArray.length; i++) {
+            const hex = document.createElement('p');
+            sequence2.appendChild(hex);
+            hex.textContent = `${hexArray[i]}`;
+        }
+        return hexArray.length;
+    }
+
+    function thirdSequenceGenerator() {
+        let size = Math.floor(Math.random() * 2) + 3;
+        let hexArray = randomTwoDigitHexArray(size);
+        return hexArray;
+    }
+
+    function thirdSequenceFill() {
+        let hexArray = thirdSequenceGenerator();
+        for (let i = 0; i < hexArray.length; i++) {
+            const hex = document.createElement('p');
+            sequence3.appendChild(hex);
+            hex.textContent = `${hexArray[i]}`;
+        }
+        return hexArray.length;
+    }
+
+    const bufferSize = () => {
+        let bufferSize = firstSequenceFill() + secondSequenceFill() + thirdSequenceFill();
+        for (let i = 0; i < bufferSize; i++) {
+            const buffer = document.createElement('p');
+            bufferContainer.appendChild(buffer);
+        }
+    }
+
+    let startedFlag = 0;
+
+    startBTN.addEventListener("click", () => {
+        if (startedFlag === 0) {
+            bufferSize();
+            startedFlag = 1;
+        } else return;
+    });
+
+    resetBTN.addEventListener("click", () => {
+        const hexes = sequenceContainer.querySelectorAll("p");
+        const buffers = bufferContainer.querySelectorAll("p");
+        hexes.forEach(hex => hex.remove());
+        buffers.forEach(buffer => buffer.remove());
+        startedFlag = 0;
+    });
+
+</script>
+
+</html>

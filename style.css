@@ -1,0 +1,72 @@
+* {
+    outline: 1px solid red;
+}
+
+body {
+    display: flex;
+    gap: 30px;
+}
+
+.section-left, .section-right {
+    display: flex;
+}
+
+.section-left {
+    width: 350px;
+}
+
+.section-right {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.time-container {
+    display: flex;
+    gap: 100px;
+    margin-top: 20px;
+}
+
+.time-remaining {
+    width: 205px;
+}
+
+.timer {
+    width: 45px;
+}
+
+.buffer-container {
+    display: flex;
+    padding: 5px;
+    gap: 10px;
+}
+
+.sequence-main {
+    display: flex;
+    flex-direction: column;
+}
+
+.sequence-container {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    gap: 10px;
+}
+
+.sequence-1, .sequence-2, .sequence-3, .buffer-container {
+    height: 35px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 5px;
+}
+
+p {
+    display: flex;
+    width: 25px;
+    height: 25px;
+    align-items: center;
+    justify-content: center;
+}
+
+
