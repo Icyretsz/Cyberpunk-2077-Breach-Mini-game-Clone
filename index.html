@@ -30,17 +30,20 @@
 
 <button id="startBtn">START</button>
 <button id="resetBtn">RESET</button>
+<button id="re-arrangeBtn">RE-ARRANGE</button>
 
 </body>
 
 <script>
     const startBTN = document.querySelector("#startBtn");
     const resetBTN = document.querySelector("#resetBtn");
+    const reArrangeBTN = document.querySelector("#re-arrangeBtn");
     const bufferContainer = document.querySelector(".buffer-container");
+    const sequenceContainer = document.querySelector(".sequence-container");
     const sequence1 = document.querySelector(".sequence-1");
     const sequence2 = document.querySelector(".sequence-2");
     const sequence3 = document.querySelector(".sequence-3");
-    const sequenceContainer = document.querySelector(".sequence-container");
+
 
     function randomTwoDigitHexArray(count) {
         const hexChars = "0123456789ABCDEF";
@@ -65,7 +68,7 @@
     function firstSequenceFill() {
         let hexArray = firstSequenceGenerator();
         for (let i = 0; i < hexArray.length; i++) {
-            const hex = document.createElement('p');
+            let hex = document.createElement('p');
             sequence1.appendChild(hex);
             hex.textContent = `${hexArray[i]}`;
         }
@@ -81,7 +84,7 @@
     function secondSequenceFill() {
         let hexArray = secondSequenceGenerator();
         for (let i = 0; i < hexArray.length; i++) {
-            const hex = document.createElement('p');
+            let hex = document.createElement('p');
             sequence2.appendChild(hex);
             hex.textContent = `${hexArray[i]}`;
         }
@@ -97,19 +100,25 @@
     function thirdSequenceFill() {
         let hexArray = thirdSequenceGenerator();
         for (let i = 0; i < hexArray.length; i++) {
-            const hex = document.createElement('p');
+            let hex = document.createElement('p');
             sequence3.appendChild(hex);
             hex.textContent = `${hexArray[i]}`;
         }
         return hexArray.length;
     }
 
-    const bufferSize = () => {
+    function bufferSize() {
         let bufferSize = firstSequenceFill() + secondSequenceFill() + thirdSequenceFill();
         for (let i = 0; i < bufferSize; i++) {
             const buffer = document.createElement('p');
             bufferContainer.appendChild(buffer);
         }
+    }
+
+    function arrangeSequence() {
+        const sequences = [sequence1, sequence2, sequence3];
+        sequences.sort((a, b) => a.querySelectorAll("p").length - b.querySelectorAll("p").length);
+        sequences.forEach(seq => sequenceContainer.appendChild(seq));
     }
 
     let startedFlag = 0;
@@ -118,6 +127,7 @@
         if (startedFlag === 0) {
             bufferSize();
             startedFlag = 1;
+            arrangeSequence();
         } else return;
     });
 
@@ -128,7 +138,6 @@
         buffers.forEach(buffer => buffer.remove());
         startedFlag = 0;
     });
-
 </script>
 
 </html>
