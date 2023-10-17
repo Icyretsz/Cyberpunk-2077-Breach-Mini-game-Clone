@@ -136,16 +136,24 @@
         return hexArray;
     }
 
+    function getMatrixSize()    {
+        let sequenceLengths = [sequence1.querySelectorAll('p').length
+        , sequence2.querySelectorAll('p').length
+        , sequence3.querySelectorAll('p').length];
+        sequenceLengths.sort((a, b) => a - b);
+        return sequenceLengths[0] + sequenceLengths[1];
+    }
+
     function getMatrix() {
         let hexArray = getAllHexArray();
-        let matrixSize = sequence1.querySelectorAll('p').length + sequence2.querySelectorAll('p').length;
+        let matrixSize = getMatrixSize();
         for (let i = 0; i < matrixSize; i++) {
             let row = document.createElement('div');
             matrixContainer.appendChild(row);
             for (let i = 0; i < matrixSize; i++) {
                 let rowContent = document.createElement('p');
                 row.appendChild(rowContent);
-                let index = Math.floor(Math.random() * matrixSize)
+                let index = Math.floor(Math.random() * hexArray.length)
                 rowContent.textContent = `${hexArray[index]}`;
             }
         }
