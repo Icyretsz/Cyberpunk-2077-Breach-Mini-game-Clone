@@ -5,6 +5,11 @@
 body {
     display: flex;
     gap: 30px;
+    flex-direction: column;
+}
+
+.game-section   {
+    display: flex;
 }
 
 .section-left, .section-right {
@@ -89,12 +94,13 @@ body {
     padding: 5px;
 }
 
-p {
+.game-section p {
     display: flex;
     width: 25px;
     height: 25px;
     align-items: center;
     justify-content: center;
 }
+
 
 
