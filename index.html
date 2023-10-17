@@ -74,7 +74,7 @@
             sequence1.appendChild(hex);
             hex.textContent = `${hexArray[i]}`;
         }
-        return hexArray.length;
+        return hexArray;
     }
 
     function secondSequenceGenerator() {
@@ -90,7 +90,7 @@
             sequence2.appendChild(hex);
             hex.textContent = `${hexArray[i]}`;
         }
-        return hexArray.length;
+        return hexArray;
     }
 
     function thirdSequenceGenerator() {
@@ -106,11 +106,14 @@
             sequence3.appendChild(hex);
             hex.textContent = `${hexArray[i]}`;
         }
-        return hexArray.length;
+        return hexArray;
     }
 
     function bufferSize() {
-        let bufferSize = firstSequenceFill() + secondSequenceFill() + thirdSequenceFill();
+        let sequence1Array = firstSequenceFill();
+        let sequence2Array = secondSequenceFill();
+        let sequence3Array = thirdSequenceFill();
+        let bufferSize = sequence1Array.length + sequence2Array.length + sequence3Array.length;
         for (let i = 0; i < bufferSize; i++) {
             const buffer = document.createElement('p');
             bufferContainer.appendChild(buffer);
@@ -141,7 +144,7 @@
 
     function getMatrix() {
         let hexArray = getAllHexArray();
-        let matrixSize = firstSequenceGenerator().length + secondSequenceGenerator().length;
+        let matrixSize = sequence1.querySelectorAll('p').length + sequence2.querySelectorAll('p').length;
         for (let i = 0; i < matrixSize; i++) {
             let row = document.createElement('div');
             matrixContainer.appendChild(row);
@@ -170,8 +173,12 @@
     resetBTN.addEventListener("click", () => {
         const hexes = sequenceContainer.querySelectorAll("p");
         const buffers = bufferContainer.querySelectorAll("p");
+        const matrixp = matrixContainer.querySelectorAll("p");
+        const matrixdiv = matrixContainer.querySelectorAll("div");
         hexes.forEach(hex => hex.remove());
         buffers.forEach(buffer => buffer.remove());
+        matrixdiv.forEach(div => div.remove());
+        matrixp.forEach(p => p.remove());
         startedFlag = 0;
     });
 </script>

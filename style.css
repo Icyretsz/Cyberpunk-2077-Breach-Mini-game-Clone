@@ -49,12 +49,16 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
 }
 
 .matrix-container div   {
     width: 350px;
     height: 35px;
     display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 .buffer-container {
