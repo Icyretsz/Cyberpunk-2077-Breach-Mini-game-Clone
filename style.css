@@ -13,6 +13,8 @@ body {
 
 .section-left {
     width: 350px;
+    display: flex;
+    flex-direction: column;
 }
 
 .section-right {
@@ -33,6 +35,26 @@ body {
 
 .timer {
     width: 45px;
+}
+
+.matrix-main {
+    display: flex;
+    justify-content: center;
+}
+
+.matrix-container   {
+    width: 350px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.matrix-container div   {
+    width: 350px;
+    height: 35px;
+    display: flex;
 }
 
 .buffer-container {

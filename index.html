@@ -13,6 +13,9 @@
         <div class="time-remaining">BREACH TIME REMAINING</div>
         <div class="timer">5:00</div>
     </div>
+    <div class="matrix-main">
+        <div class="matrix-container"></div>
+    </div>
 </div>
 
 <div class="section-right">
@@ -36,7 +39,7 @@
 <script>
     const startBTN = document.querySelector("#startBtn");
     const resetBTN = document.querySelector("#resetBtn");
-    const reArrangeBTN = document.querySelector("#re-arrangeBtn");
+    const matrixContainer = document.querySelector(".matrix-container");
     const bufferContainer = document.querySelector(".buffer-container");
     const sequenceContainer = document.querySelector(".sequence-container");
     const sequence1 = document.querySelector(".sequence-1");
@@ -120,6 +123,37 @@
         sequences.forEach(seq => sequenceContainer.appendChild(seq));
     }
 
+    function getHexArray(sequence)  {
+        let hexes = [];
+        sequence.querySelectorAll('p').forEach(p => {
+            hexes.push(p.textContent);
+        });
+        return hexes;
+    }
+
+    function getAllHexArray()   {
+        let hexArray = [];
+        hexArray = hexArray.concat(getHexArray(sequence1));
+        hexArray = hexArray.concat(getHexArray(sequence2));
+        hexArray = hexArray.concat(getHexArray(sequence3));
+        return hexArray;
+    }
+
+    function getMatrix() {
+        let hexArray = getAllHexArray();
+        let matrixSize = firstSequenceGenerator().length + secondSequenceGenerator().length;
+        for (let i = 0; i < matrixSize; i++) {
+            let row = document.createElement('div');
+            matrixContainer.appendChild(row);
+            for (let i=0; i < matrixSize; i++)  {
+                let rowContent = document.createElement('p');
+                row.appendChild(rowContent);
+                let index = Math.floor(Math.random() * 5)
+                rowContent.textContent = `${hexArray[index]}`;
+            }
+        }
+    }
+
     let startedFlag = 0;
 
     startBTN.addEventListener("click", () => {
@@ -127,7 +161,10 @@
             bufferSize();
             startedFlag = 1;
             arrangeSequence();
-        } else return;
+            getMatrix();
+        } else {
+            return;
+        }
     });
 
     resetBTN.addEventListener("click", () => {
