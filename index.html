@@ -111,7 +111,7 @@
         let sequence2Array = secondSequenceFill();
         let sequence3Array = thirdSequenceFill();
         let bufferSize = sequence1Array.length + sequence2Array.length + sequence3Array.length;
-        for (let i = 1; i <= bufferSize; i++) {
+        for (let i = 0; i < bufferSize; i++) {
             const buffer = document.createElement('p');
             bufferContainer.appendChild(buffer);
             buffer.className = `bufferBTN-${i}`;
@@ -149,32 +149,81 @@
         return sequenceLengths[0] + sequenceLengths[1];
     }
 
-    let indexCount = 0;
+
+    let hexMatrix = [];
+    let hexClickedBox = [];
+    let bufferIndexCount = 0;
 
     function getMatrix() {
         let hexArray = getAllHexArray();
         let matrixSize = getMatrixSize();
-        for (let i = 1; i <= matrixSize; i++) {
+        for (let i = 0; i < matrixSize; i++) {
             let row = document.createElement('div');
             matrixContainer.appendChild(row);
-            for (let j = 1; j <= matrixSize; j++) {
+            let matrixRow = [];
+            for (let j = 0; j < matrixSize; j++) {
                 let rowContent = document.createElement('button');
                 row.appendChild(rowContent);
                 let index = Math.floor(Math.random() * hexArray.length)
                 rowContent.textContent = `${hexArray[index]}`;
                 rowContent.className = `matrixBTN-${i}-${j}`;
-                rowContent.addEventListener('click', function () {
-                    bufferBox[indexCount].textContent = rowContent.textContent;
-                    indexCount++;
+                rowContent.addEventListener('click', () => {
+                    bufferBox[bufferIndexCount].textContent = rowContent.textContent;
+                    hexClickedBox.push(rowContent);
+                    if (bufferIndexCount === 0 || bufferIndexCount%2 === 0) {
+                        blockAllBTN();
+                        for (let d = 0; d < matrixSize; d++) {
+                            if (d === i) continue;
+                            hexMatrix[d][j].disabled = false;
+                        }
+
+                    } else if (bufferIndexCount === 1 || bufferIndexCount%2 !== 0) {
+                        blockAllBTN();
+                        for (let e = 0; e < matrixSize; e++) {
+                            if (e === j) continue;
+                            hexMatrix[i][e].disabled = false;
+                        }
+                    }
+                    bufferIndexCount++;
                 });
+                matrixRow.push(rowContent);
+            }
+            hexMatrix.push(matrixRow);
+        }
+        function blockAllBTN()  {
+            for (let b = 0; b < matrixSize; b++) {
+                for (let c = 0; c < matrixSize; c++) {
+                    hexMatrix[b][c].disabled = true;
+                }
             }
         }
+        /*for (let i = 0; i < matrixSize; i++) {
+            for (let j = 0; j < matrixSize; j++) {
+                if (bufferIndexCount === 0) {
+                    hexMatrix[i][j].addEventListener('mouseover', () => {
+                        if (bufferIndexCount === 0) {
+                            for (let k = 1; k < matrixSize; k++) {
+                                for (let a = 0; a < matrixSize; a++) {
+                                    hexMatrix[k][a].disabled = true;
+                                }
+                            }
+                        }
+                    })
+                    hexMatrix[i][j].addEventListener('mouseout', () => {
+                        for (let k = 0; k < matrixSize; k++) {
+                            for (let a = 0; a < matrixSize; a++) {
+                                hexMatrix[k][a].disabled = false;
+                            }
+                        }
+                    });
+                }
+                if (bufferIndexCount === 1 || bufferIndexCount === 3 || bufferIndexCount === 5
+                    || bufferIndexCount === 7) {
+                    hexMatrix[i][j].addEventListener('')
+                }
+            }
+        }*/
     }
-
-    function hexClick() {
-
-    }
-
 
     let startedFlag = 0;
 
@@ -199,8 +248,9 @@
         matrixDiv.forEach(div => div.remove());
         matrixP.forEach(p => p.remove());
         startedFlag = 0;
-        indexCount = 0;
         bufferBox = [];
+        hexMatrix = [];
+        bufferIndexCount = 0;
     });
 </script>
 
