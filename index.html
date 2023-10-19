@@ -154,7 +154,7 @@
     let hexClickedBox = [];
     let bufferIndexCount = 0;
 
-    function getMatrix() {
+    function coreMatrixMechanic() {
         let hexArray = getAllHexArray();
         let matrixSize = getMatrixSize();
         for (let i = 0; i < matrixSize; i++) {
@@ -170,14 +170,14 @@
                 rowContent.addEventListener('click', () => {
                     bufferBox[bufferIndexCount].textContent = rowContent.textContent;
                     hexClickedBox.push(rowContent);
-                    if (bufferIndexCount === 0 || bufferIndexCount%2 === 0) {
+                    if (bufferIndexCount === 0 || bufferIndexCount % 2 === 0) {
                         blockAllBTN();
                         for (let d = 0; d < matrixSize; d++) {
                             if (d === i) continue;
                             hexMatrix[d][j].disabled = false;
                         }
 
-                    } else if (bufferIndexCount === 1 || bufferIndexCount%2 !== 0) {
+                    } else if (bufferIndexCount === 1 || bufferIndexCount % 2 !== 0) {
                         blockAllBTN();
                         for (let e = 0; e < matrixSize; e++) {
                             if (e === j) continue;
@@ -190,39 +190,42 @@
             }
             hexMatrix.push(matrixRow);
         }
-        function blockAllBTN()  {
-            for (let b = 0; b < matrixSize; b++) {
-                for (let c = 0; c < matrixSize; c++) {
-                    hexMatrix[b][c].disabled = true;
-                }
-            }
-        }
-        /*for (let i = 0; i < matrixSize; i++) {
+        disableBTNExceptFirstRow();
+    }
+
+    function disableBTNExceptFirstRow() {
+        let matrixSize = getMatrixSize();
+        for (let i = 0; i < matrixSize; i++) {
             for (let j = 0; j < matrixSize; j++) {
-                if (bufferIndexCount === 0) {
-                    hexMatrix[i][j].addEventListener('mouseover', () => {
-                        if (bufferIndexCount === 0) {
-                            for (let k = 1; k < matrixSize; k++) {
-                                for (let a = 0; a < matrixSize; a++) {
-                                    hexMatrix[k][a].disabled = true;
-                                }
+                hexMatrix[i][j].addEventListener('mouseover', () => {
+                    if (bufferIndexCount === 0) {
+                        for (let k = 1; k < matrixSize; k++) {
+                            for (let a = 0; a < matrixSize; a++) {
+                                hexMatrix[k][a].disabled = true;
                             }
                         }
-                    })
-                    hexMatrix[i][j].addEventListener('mouseout', () => {
+                    }
+                })
+                hexMatrix[i][j].addEventListener('mouseout', () => {
+                    if (bufferIndexCount === 0) {
                         for (let k = 0; k < matrixSize; k++) {
                             for (let a = 0; a < matrixSize; a++) {
                                 hexMatrix[k][a].disabled = false;
                             }
                         }
-                    });
-                }
-                if (bufferIndexCount === 1 || bufferIndexCount === 3 || bufferIndexCount === 5
-                    || bufferIndexCount === 7) {
-                    hexMatrix[i][j].addEventListener('')
-                }
+                    }
+                });
             }
-        }*/
+        }
+    }
+
+    function blockAllBTN() {
+        let matrixSize = getMatrixSize();
+        for (let b = 0; b < matrixSize; b++) {
+            for (let c = 0; c < matrixSize; c++) {
+                hexMatrix[b][c].disabled = true;
+            }
+        }
     }
 
     let startedFlag = 0;
@@ -232,7 +235,7 @@
             bufferSize();
             startedFlag = 1;
             arrangeSequence();
-            getMatrix();
+            coreMatrixMechanic();
         } else {
             return;
         }
