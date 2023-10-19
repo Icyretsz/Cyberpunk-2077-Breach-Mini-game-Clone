@@ -96,10 +96,15 @@ body {
 
 .game-section p {
     display: flex;
-    width: 25px;
-    height: 25px;
+    width: 35px;
+    height: 35px;
     align-items: center;
     justify-content: center;
+}
+
+.matrix-container button {
+    width: 35px;
+    height: 35px;
 }
 
 
