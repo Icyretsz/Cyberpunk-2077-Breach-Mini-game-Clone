@@ -104,18 +104,18 @@
         return hexArray;
     }
 
-    let buffers = [];
+    let bufferBox = [];
 
     function bufferSize() {
         let sequence1Array = firstSequenceFill();
         let sequence2Array = secondSequenceFill();
         let sequence3Array = thirdSequenceFill();
         let bufferSize = sequence1Array.length + sequence2Array.length + sequence3Array.length;
-        for (let i = 0; i < bufferSize; i++) {
+        for (let i = 1; i <= bufferSize; i++) {
             const buffer = document.createElement('p');
             bufferContainer.appendChild(buffer);
             buffer.className = `bufferBTN-${i}`;
-            buffers.push(buffer);
+            bufferBox.push(buffer);
         }
     }
 
@@ -149,10 +149,11 @@
         return sequenceLengths[0] + sequenceLengths[1];
     }
 
+    let indexCount = 0;
+
     function getMatrix() {
         let hexArray = getAllHexArray();
         let matrixSize = getMatrixSize();
-        let indexCount = 0;
         for (let i = 1; i <= matrixSize; i++) {
             let row = document.createElement('div');
             matrixContainer.appendChild(row);
@@ -163,7 +164,7 @@
                 rowContent.textContent = `${hexArray[index]}`;
                 rowContent.className = `matrixBTN-${i}-${j}`;
                 rowContent.addEventListener('click', function () {
-                    buffers[indexCount].textContent = rowContent.textContent;
+                    bufferBox[indexCount].textContent = rowContent.textContent;
                     indexCount++;
                 });
             }
@@ -198,6 +199,8 @@
         matrixDiv.forEach(div => div.remove());
         matrixP.forEach(p => p.remove());
         startedFlag = 0;
+        indexCount = 0;
+        bufferBox = [];
     });
 </script>
 
