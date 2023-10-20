@@ -37,8 +37,8 @@
 </div>
 <div class="generate-principles">Generate principles:
     <p>1. The buffer slots will equal to total of hexadecimals generated.</p>
-    <p>2. The first sequence: 2 to 3 hexes.</p>
-    <p>3. The second sequence: 2 to 4 hexes.</p>
+    <p>2. The first sequence: 2 hexes.</p>
+    <p>3. The second sequence: 2 to 3 hexes.</p>
     <p>4. The third sequence: 3 to 4 hexes.</p>
     <p>5. The matrix size (n: row, m: column) will have n = m, n and m will be determined by summing the
         first and second sequence.</p>
@@ -74,7 +74,7 @@
     }
 
     function firstSequenceFill() {
-        let size = Math.floor(Math.random() * 2) + 2;
+        let size = 2;
         let hexArray = randomTwoDigitHexArray(size);
         for (let i = 0; i < hexArray.length; i++) {
             let hex = document.createElement('p');
@@ -85,7 +85,7 @@
     }
 
     function secondSequenceFill() {
-        let size = Math.floor(Math.random() * 3) + 2;
+        let size = Math.floor(Math.random() * 2) + 2;
         let hexArray = randomTwoDigitHexArray(size);
         for (let i = 0; i < hexArray.length; i++) {
             let hex = document.createElement('p');
