@@ -112,5 +112,9 @@ body {
     color: mediumvioletred;
 }
 
+.results-container p {
+    width: auto;
+    height: auto;
+}
 
 
