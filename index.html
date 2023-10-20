@@ -120,11 +120,11 @@
         }
     }
 
-    function arrangeSequence() {
+    /*function arrangeSequence() {
         const sequences = [sequence1, sequence2, sequence3];
         sequences.sort((a, b) => a.querySelectorAll("p").length - b.querySelectorAll("p").length);
         sequences.forEach(seq => sequenceContainer.appendChild(seq));
-    }
+    }*/
 
     function getHexInSequenceArray(sequence) {
         let hexes = [];
@@ -324,6 +324,9 @@
         hexInMatrix = [];
         bufferIndexCount = 0;
         hexClickedBox = [];
+        sequence1IndexTrack = 0;
+        sequence2IndexTrack = 0;
+        sequence3IndexTrack = 0;
     });
 </script>
 
