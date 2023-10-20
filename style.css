@@ -54,6 +54,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 10px;
 
 }
 
@@ -105,6 +106,10 @@ body {
 .matrix-container button {
     width: 35px;
     height: 35px;
+}
+
+.correctly-chosen-hex   {
+    color: mediumvioletred;
 }
 
 
