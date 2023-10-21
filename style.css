@@ -1,4 +1,4 @@
-* {
+* :not(.instructions p, .instructions strong) {
     outline: 1px solid red;
 }
 
@@ -18,14 +18,20 @@ body {
 
 .section-left {
     width: 350px;
+    height: 700px;
     display: flex;
     flex-direction: column;
 }
 
 .section-right {
-    width: 500px;
+    min-width: 400px;
     display: flex;
+    height: 700px;
     flex-direction: column;
+}
+
+#startBtn, #resetBtn {
+    height: 700px;
 }
 
 .time-container {
@@ -95,7 +101,7 @@ body {
     padding: 5px;
 }
 
-.game-section p {
+.game-section :not(.instructions) p {
     display: flex;
     width: 35px;
     height: 35px;
@@ -117,9 +123,40 @@ body {
     color: #EFEFEF4D;
 }
 
-.results-container p {
-    width: auto;
-    height: auto;
+.game-section .section-left .results-container p {
+    width: 350px;
 }
+
+.instructions {
+    padding: 5px;
+}
+
+.game-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    z-index: 1;
+}
+
+.instructions {
+    position: static;
+}
+
+.section-left,
+.section-right,
+#startBtn,
+#resetBtn {
+    position: sticky;
+    top: 0;
+}
+
+
+
+
+
+
 
 

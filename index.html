@@ -16,6 +16,7 @@
         <div class="matrix-main">
             <div class="matrix-container"></div>
         </div>
+        <div class="results-container"></div>
     </div>
 
     <div class="section-right">
@@ -33,16 +34,53 @@
 
     <button id="startBtn">START</button>
     <button id="resetBtn">RESET</button>
-    <div class="results-container"></div>
-</div>
-<div class="generate-principles">Generate principles:
-    <p>1. The buffer slots will equal to total of hexadecimals generated.</p>
-    <p>2. The first sequence: 2 hexes.</p>
-    <p>3. The second sequence: 2 to 3 hexes.</p>
-    <p>4. The third sequence: 3 to 4 hexes.</p>
-    <p>5. The matrix size (n: row, m: column) will have n = m, n and m will be determined by summing the
-        first and second sequence.</p>
-    <p>6. The matrix will contain only the hexadecimals generated (all the hexadecimals in 3 sequences).</p>
+    <div class="instructions">
+        <p>How to play:</p>
+        <p>1.	The sequences: the game will generate random 2-digits hexadecimal values and arrange them into
+            <strong>sequences</strong>. There will be 3 sequences:</p>
+        <p>Sequence 1: 2 hexadecimals.</p>
+        <p>Sequence 2: 2 to 3 hexadecimals.</p>
+        <p>Sequence 3: 3 to 4 hexadecimals.</p>
+        <img src="./pictures/1.png" alt="the sequences">
+        <p>The matrix: from those 3 sequences, a matrix <strong>that comprise the hexadecimals that the sequences contain
+            will be generated</strong>. The size of the matrix will be determined by <strong>summing the number of
+            hexadecimals</strong> contained in sequence1 and sequence2.</p>
+        <img src="./pictures/2.png" alt="the matrix">
+        <p>The buffer: the buffer will be created, the number of slots in the buffer
+            is equal to <strong>the total of hexadecimals</strong> initially created.</p>
+        <img src="./pictures/3.png" alt="the buffer">
+        <p>You will have to <strong>select a hexadecimal</strong> in the matrix that <strong>matches</strong>
+            the hexadecimal in one (or many) sequence.
+            You can only choose <strong>one</strong> hexadecimal at a time.</p>
+        <p>On your first move, you will only be allowed to choose the hexadecimals on the <strong>first
+            row</strong>.</p>
+        <p>Each time a correct hexadecimal is selected, the corresponding hexadecimal in the sequences
+            will <strong>change color</strong> to indicate correct choice. Additionally, the selected hexadecimal will be
+            <strong>disabled</strong> for <strong>the rest of the game</strong>. For example, I
+            chose <strong>CD</strong>.</p>
+        <img src="./pictures/4.png" alt="instruction">
+        <p>After the first move, you will be allowed to choose the hexadecimals <strong>in the column below
+            the first</strong>.
+            All other unrelated hexadecimals will be <strong>temporary disabled</strong> so that you can’t
+            click on them.</p>
+        <img src="./pictures/5.png" alt="instruction">
+        <p>Then on the second move, when you click on a hexadecimal, the same thing happens just like on the
+            first move. But there’s a catch! This time you will only be allowed to choose the hexadecimals
+            <strong>on the same column</strong> as the hexadecimal you previously chose. For example, I chose
+            <strong>62</strong>.</p>
+        <p>Remember to also check on the <strong>buffer limit</strong>, you are only permitted to choose up to
+            the buffer limit.
+            In this case, you can choose <strong>7 hexadecimals</strong> before the game ends. By this time, we have
+            finished <strong>sequence 1</strong>!</p>
+        <img src="./pictures/6.png" alt="instruction">
+        <p>And the cycle continues. Summarize: on the first move, you can choose <strong>horizontally</strong>,
+            to the next,
+            you can choose <strong>vertically</strong>, then <strong>horizontally</strong> again,...</p>
+        <img src="./pictures/7.png" alt="instruction">
+        <p>Keep repeating until you complete one (or many) sequences. Unfortunately I can only complete
+            <strong>sequence 1</strong>.</p>
+
+    </div>
 </div>
 
 </body>
