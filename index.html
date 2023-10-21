@@ -208,7 +208,7 @@
                 hexInSequence1Array[sequence1IndexTrack].className = `correctly-chosen-hex`;
                 sequence1IndexTrack++;
             }
-        } else if (sequence1IndexTrack >= 3) return;
+        } else return;
     }
 
     let sequence2IndexTrack = 0;
@@ -220,7 +220,7 @@
                 hexInSequence2Array[sequence2IndexTrack].className = `correctly-chosen-hex`;
                 sequence2IndexTrack++;
             }
-        } else if (sequence2IndexTrack >= 4) return;
+        } else return;
     }
 
     let sequence3IndexTrack = 0;
@@ -232,7 +232,7 @@
                 hexInSequence3Array[sequence3IndexTrack].className = `correctly-chosen-hex`;
                 sequence3IndexTrack++;
             }
-        } else if (sequence3IndexTrack >= 4) return;
+        } else return;
     }
 
     function maxBufferExceeded() {
