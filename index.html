@@ -48,15 +48,24 @@
 </body>
 
 <script>
-    const startBTN = document.querySelector("#startBtn");
-    const resetBTN = document.querySelector("#resetBtn");
+    const startButton = document.querySelector("#startBtn");
+    const resetButton = document.querySelector("#resetBtn");
     const matrixContainer = document.querySelector(".matrix-container");
     const bufferContainer = document.querySelector(".buffer-container");
     const sequenceContainer = document.querySelector(".sequence-container");
     const sequence1 = document.querySelector(".sequence-1");
     const sequence2 = document.querySelector(".sequence-2");
     const sequence3 = document.querySelector(".sequence-3");
-    const resultContainer = document.querySelector(".results-container")
+    const resultContainer = document.querySelector(".results-container");
+    let bufferSlots = [];
+    let matrixSize = 0;
+    let hexInMatrix = [];
+    let hexClickedBox = [];
+    let bufferIndexCount = 0;
+    let sequence1IndexTrack = 0;
+    let sequence2IndexTrack = 0;
+    let sequence3IndexTrack = 0;
+    let startedFlag = 0;
 
 
     function randomTwoDigitHexArray(count) {
@@ -106,7 +115,7 @@
         return hexArray;
     }
 
-    let bufferSlots = [];
+
     function createBufferSlot() {
         let sequence1Array = firstSequenceFill();
         let sequence2Array = secondSequenceFill();
@@ -119,41 +128,6 @@
             bufferSlots.push(buffer);
         }
     }
-
-    /*function arrangeSequence() {
-        const sequences = [sequence1, sequence2, sequence3];
-        sequences.sort((a, b) => a.querySelectorAll("p").length - b.querySelectorAll("p").length);
-        sequences.forEach(seq => sequenceContainer.appendChild(seq));
-    }*/
-
-    function getHexInSequenceArray(sequence) {
-        let hexes = [];
-        sequence.querySelectorAll('p').forEach(p => {
-            hexes.push(p);
-        });
-        return hexes;
-    }
-
-    function getAllHexInSequencesArray() {
-        let hexArray = [];
-        hexArray = hexArray.concat(getHexInSequenceArray(sequence1));
-        hexArray = hexArray.concat(getHexInSequenceArray(sequence2));
-        hexArray = hexArray.concat(getHexInSequenceArray(sequence3));
-        return hexArray;
-    }
-
-    function getMatrixSize() {
-        let sequenceLengths = [sequence1.querySelectorAll('p').length
-            , sequence2.querySelectorAll('p').length
-            , sequence3.querySelectorAll('p').length];
-        sequenceLengths.sort((a, b) => a - b);
-        return sequenceLengths[0] + sequenceLengths[1];
-    }
-
-    let matrixSize = 0;
-    let hexInMatrix = [];
-    let hexClickedBox = [];
-    let bufferIndexCount = 0;
 
     function coreMatrixMechanic() {
         //Creating the matrix
@@ -202,73 +176,28 @@
         disableBTNExceptFirstRow();
     }
 
-    let sequence1IndexTrack = 0;
-
-    function compareClickToSequence1() {
-        let hexInSequence1Array = getHexInSequenceArray(sequence1);
-        if (sequence1IndexTrack < hexInSequence1Array.length) {
-            if (hexClickedBox[bufferIndexCount].textContent === hexInSequence1Array[sequence1IndexTrack].textContent) {
-                hexInSequence1Array[sequence1IndexTrack].className = `correctly-chosen-hex`;
-                sequence1IndexTrack++;
-            }
-        } else return;
+    function getHexInSequenceArray(sequence) {
+        let hexes = [];
+        sequence.querySelectorAll('p').forEach(p => {
+            hexes.push(p);
+        });
+        return hexes;
     }
 
-    let sequence2IndexTrack = 0;
-
-    function compareClickToSequence2() {
-        let hexInSequence2Array = getHexInSequenceArray(sequence2);
-        if (sequence2IndexTrack < hexInSequence2Array.length) {
-            if (hexClickedBox[bufferIndexCount].textContent === hexInSequence2Array[sequence2IndexTrack].textContent) {
-                hexInSequence2Array[sequence2IndexTrack].className = `correctly-chosen-hex`;
-                sequence2IndexTrack++;
-            }
-        } else return;
+    function getAllHexInSequencesArray() {
+        let hexArray = [];
+        hexArray = hexArray.concat(getHexInSequenceArray(sequence1));
+        hexArray = hexArray.concat(getHexInSequenceArray(sequence2));
+        hexArray = hexArray.concat(getHexInSequenceArray(sequence3));
+        return hexArray;
     }
 
-    let sequence3IndexTrack = 0;
-
-    function compareClickToSequence3() {
-        let hexInSequence3Array = getHexInSequenceArray(sequence3);
-        if (sequence3IndexTrack < hexInSequence3Array.length) {
-            if (hexClickedBox[bufferIndexCount].textContent === hexInSequence3Array[sequence3IndexTrack].textContent) {
-                hexInSequence3Array[sequence3IndexTrack].className = `correctly-chosen-hex`;
-                sequence3IndexTrack++;
-            }
-        } else return;
-    }
-
-    function flagClickedHex()    {
-        for (let i = 0; i < hexClickedBox.length; i++)  {
-            hexClickedBox[i].className = `hex-clicked`;
-        }
-    }
-
-    function maxBufferExceeded() {
-        let anySequenceCompleted = false;
-        alert(`Game Over!`);
-        if (sequence1IndexTrack === getHexInSequenceArray(sequence1).length) {
-            let result1 = document.createElement('p');
-            resultContainer.appendChild(result1);
-            result1.textContent = `You have completed sequence 1`;
-            anySequenceCompleted = true;
-        }
-        if (sequence2IndexTrack === getHexInSequenceArray(sequence2).length) {
-            let result2 = document.createElement('p');
-            resultContainer.appendChild(result2);
-            result2.textContent = `You have completed sequence 2`;
-            anySequenceCompleted = true;
-        }
-        if (sequence3IndexTrack === getHexInSequenceArray(sequence3).length) {
-            let result3 = document.createElement('p');
-            resultContainer.appendChild(result3);
-            result3.textContent = `You have completed sequence 3`;
-            anySequenceCompleted = true;
-        }
-
-        if (!anySequenceCompleted) {
-            alert(`Failed!`);
-        }
+    function getMatrixSize() {
+        let sequenceLengths = [sequence1.querySelectorAll('p').length
+            , sequence2.querySelectorAll('p').length
+            , sequence3.querySelectorAll('p').length];
+        sequenceLengths.sort((a, b) => a - b);
+        return sequenceLengths[0] + sequenceLengths[1];
     }
 
     function disableBTNExceptFirstRow() {
@@ -304,9 +233,70 @@
         }
     }
 
-    let startedFlag = 0;
+    function flagClickedHex()    {
+        for (let i = 0; i < hexClickedBox.length; i++)  {
+            hexClickedBox[i].className = `hex-clicked`;
+        }
+    }
 
-    startBTN.addEventListener("click", () => {
+    function compareClickToSequence1() {
+        let hexInSequence1Array = getHexInSequenceArray(sequence1);
+        if (sequence1IndexTrack < hexInSequence1Array.length) {
+            if (hexClickedBox[bufferIndexCount].textContent === hexInSequence1Array[sequence1IndexTrack].textContent) {
+                hexInSequence1Array[sequence1IndexTrack].className = `correctly-chosen-hex`;
+                sequence1IndexTrack++;
+            }
+        } else return;
+    }
+
+    function compareClickToSequence2() {
+        let hexInSequence2Array = getHexInSequenceArray(sequence2);
+        if (sequence2IndexTrack < hexInSequence2Array.length) {
+            if (hexClickedBox[bufferIndexCount].textContent === hexInSequence2Array[sequence2IndexTrack].textContent) {
+                hexInSequence2Array[sequence2IndexTrack].className = `correctly-chosen-hex`;
+                sequence2IndexTrack++;
+            }
+        } else return;
+    }
+
+    function compareClickToSequence3() {
+        let hexInSequence3Array = getHexInSequenceArray(sequence3);
+        if (sequence3IndexTrack < hexInSequence3Array.length) {
+            if (hexClickedBox[bufferIndexCount].textContent === hexInSequence3Array[sequence3IndexTrack].textContent) {
+                hexInSequence3Array[sequence3IndexTrack].className = `correctly-chosen-hex`;
+                sequence3IndexTrack++;
+            }
+        } else return;
+    }
+
+    function maxBufferExceeded() {
+        let anySequenceCompleted = false;
+        alert(`Game Over!`);
+        if (sequence1IndexTrack === getHexInSequenceArray(sequence1).length) {
+            let result1 = document.createElement('p');
+            resultContainer.appendChild(result1);
+            result1.textContent = `You have completed sequence 1`;
+            anySequenceCompleted = true;
+        }
+        if (sequence2IndexTrack === getHexInSequenceArray(sequence2).length) {
+            let result2 = document.createElement('p');
+            resultContainer.appendChild(result2);
+            result2.textContent = `You have completed sequence 2`;
+            anySequenceCompleted = true;
+        }
+        if (sequence3IndexTrack === getHexInSequenceArray(sequence3).length) {
+            let result3 = document.createElement('p');
+            resultContainer.appendChild(result3);
+            result3.textContent = `You have completed sequence 3`;
+            anySequenceCompleted = true;
+        }
+
+        if (!anySequenceCompleted) {
+            alert(`Failed!`);
+        }
+    }
+
+    startButton.addEventListener("click", () => {
         if (startedFlag === 0) {
             createBufferSlot();
             startedFlag = 1;
@@ -317,7 +307,7 @@
         }
     });
 
-    resetBTN.addEventListener("click", () => {
+    resetButton.addEventListener("click", () => {
         const hexes = sequenceContainer.querySelectorAll("p");
         const buffers = bufferContainer.querySelectorAll("p");
         const matrixP = matrixContainer.querySelectorAll("p");
