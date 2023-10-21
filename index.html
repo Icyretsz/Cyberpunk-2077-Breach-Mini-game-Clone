@@ -173,16 +173,19 @@
                 rowContent.addEventListener('click', () => {
                     bufferSlots[bufferIndexCount].textContent = rowContent.textContent;
                     hexClickedBox.push(rowContent);
+                    flagClickedHex();
                     if (bufferIndexCount === 0 || bufferIndexCount % 2 === 0) {
                         blockAllBTN();
                         for (let d = 0; d < matrixSize; d++) {
                             if (d === i) continue;
+                            if (hexInMatrix[d][j].className === 'hex-clicked') continue;
                             hexInMatrix[d][j].disabled = false;
                         }
                     } else if (bufferIndexCount === 1 || bufferIndexCount % 2 !== 0) {
                         blockAllBTN();
                         for (let e = 0; e < matrixSize; e++) {
                             if (e === j) continue;
+                            if (hexInMatrix[i][e].className === 'hex-clicked') continue;
                             hexInMatrix[i][e].disabled = false;
                         }
                     }
@@ -233,6 +236,12 @@
                 sequence3IndexTrack++;
             }
         } else return;
+    }
+
+    function flagClickedHex()    {
+        for (let i = 0; i < hexClickedBox.length; i++)  {
+            hexClickedBox[i].className = `hex-clicked`;
+        }
     }
 
     function maxBufferExceeded() {

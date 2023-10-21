@@ -112,6 +112,10 @@ body {
     color: mediumvioletred;
 }
 
+.hex-clicked    {
+    color: #EFEFEF4D;
+}
+
 .results-container p {
     width: auto;
     height: auto;
