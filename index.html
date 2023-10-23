@@ -162,7 +162,6 @@
                 rowContent.textContent = `${hexArray[index].textContent}`;
                 rowContent.className = `matrixBTN-${i}-${j}`;
                 //highlightHoveredHex(rowContent);
-                //Handle when buttons are clicked
                 rowContent.addEventListener('click', () => {
                     bufferSlots[bufferIndexCount].textContent = rowContent.textContent;
                     hexClickedBox.push(rowContent);
@@ -198,48 +197,32 @@
         disableBTNExceptFirstRow();
     }
 
-    /*function highlightHoveredHex(rowContent) {
-        let hexInSequence1Array = getHexInSequenceArray(sequence1);
-        let hexInSequence2Array = getHexInSequenceArray(sequence2);
-        let hexInSequence3Array = getHexInSequenceArray(sequence3);
-        let sequenceIndexTracker = returnCurrentIndex();
-        rowContent.addEventListener('mouseover', () => {
-            if (rowContent.textContent === hexInSequence1Array[sequenceIndexTracker[1]].textContent)    {
-                hexInSequence1Array[sequenceIndexTracker[1]].classList.add('correctly-hovered');
-            }
-            if (rowContent.textContent === hexInSequence2Array[sequenceIndexTracker[2]].textContent)    {
-                hexInSequence2Array[sequenceIndexTracker[2]].classList.add('correctly-hovered');
-            }
-            if (rowContent.textContent === hexInSequence3Array[sequenceIndexTracker[3]].textContent)    {
-                hexInSequence3Array[sequenceIndexTracker[3]].classList.add('correctly-hovered');
-            }
-        });
-        rowContent.addEventListener('mouseout', () => {
-            hexInSequence1Array[sequenceIndexTracker[1]].classList.remove('correctly-hovered');
-            hexInSequence2Array[sequenceIndexTracker[2]].classList.remove('correctly-hovered');
-            hexInSequence3Array[sequenceIndexTracker[3]].classList.remove('correctly-hovered');
-        })
-    }*/
-
     function sequenceCheck(sequenceIndexTracker, sequence) {
+        if (sequence.classList.contains('failed')) return;
+
         let sequenceArray = getHexInSequenceArray(sequence);
+        if (sequenceArray[sequenceIndexTracker].classList.contains('correctly-chose-hex')) return;
         for (let hex of sequenceArray) {
             let hexFound = false;
+
             for (let i = 0; i < matrixSize; i++) {
                 for (let j = 0; j < matrixSize; j++) {
-                    if (hexInMatrix[i][j].textContent === hex.textContent && hexInMatrix[i][j].className !== 'hex-clicked') {
+                    if (!hexInMatrix[i][j].classList.contains('hex-clicked') &&
+                        hexInMatrix[i][j].textContent === hex.textContent) {
                         hexFound = true;
                         break;
                     }
                 }
                 if (hexFound) break;
             }
+
             if (!hexFound) {
                 sequence.classList.add('failed');
                 break;
             }
         }
     }
+
 
 
     function failedSequenceClassNameReset() {
