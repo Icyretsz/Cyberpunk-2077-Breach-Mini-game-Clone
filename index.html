@@ -185,12 +185,12 @@
                     sequence1IndexTracker = compareClickToSequence(sequence1IndexTracker, sequence1);
                     sequence2IndexTracker = compareClickToSequence(sequence2IndexTracker, sequence2);
                     sequence3IndexTracker = compareClickToSequence(sequence3IndexTracker, sequence3);
+                    sequenceCheck(sequence1IndexTracker, sequence1);
+                    sequenceCheck(sequence2IndexTracker, sequence2);
+                    sequenceCheck(sequence3IndexTracker, sequence3);
                     bufferIndexCount++;
                     if (bufferIndexCount === bufferSlots.length) maxBufferExceeded();
                 });
-                rowContent.addEventListener('mouseover', () =>{
-
-                })
                 matrixRow.push(rowContent);
             }
             hexInMatrix.push(matrixRow);
@@ -221,10 +221,32 @@
         })
     }*/
 
-    function returnCurrentIndex()   {
-        return [sequence1IndexTracker, sequence2IndexTracker, sequence3IndexTracker];
+    function sequenceCheck(sequenceIndexTracker, sequence) {
+        let sequenceArray = getHexInSequenceArray(sequence);
+        for (let hex of sequenceArray) {
+            let hexFound = false;
+            for (let i = 0; i < matrixSize; i++) {
+                for (let j = 0; j < matrixSize; j++) {
+                    if (hexInMatrix[i][j].textContent === hex.textContent && hexInMatrix[i][j].className !== 'hex-clicked') {
+                        hexFound = true;
+                        break;
+                    }
+                }
+                if (hexFound) break;
+            }
+            if (!hexFound) {
+                sequence.classList.add('failed');
+                break;
+            }
+        }
     }
 
+
+    function failedSequenceClassNameReset() {
+        sequence1.classList.remove('failed');
+        sequence2.classList.remove('failed');
+        sequence3.classList.remove('failed');
+    }
 
     function getHexInSequenceArray(sequence) {
         let hexes = [];
@@ -294,7 +316,7 @@
         if (sequenceIndexTracker < hexInSequenceArray.length) {
             if (hexClickedBox[bufferIndexCount].textContent === hexInSequenceArray[sequenceIndexTracker].textContent) {
                 hexInSequenceArray[sequenceIndexTracker].className = `correctly-chose-hex`;
-                sequenceIndexTracker++
+                sequenceIndexTracker++;
             }
         }
         return sequenceIndexTracker;
@@ -350,6 +372,7 @@
         matrixDiv.forEach(div => div.remove());
         matrixP.forEach(p => p.remove());
         results.forEach(p => p.remove());
+        failedSequenceClassNameReset();
         startedFlag = 0;
         bufferSlots = [];
         hexInMatrix = [];

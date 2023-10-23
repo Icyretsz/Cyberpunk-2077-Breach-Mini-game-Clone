@@ -3,6 +3,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 30px;
+    background-color: black;
 }
 
 .game-section {
@@ -57,6 +58,7 @@ body {
 #startBtn,
 #resetBtn {
     height: 700px;
+    background-color: black;
 }
 
 /* Timer Section */
@@ -102,6 +104,7 @@ body {
 .matrix-container button {
     width: 35px;
     height: 35px;
+    background-color: black;
 }
 
 .matrix {
@@ -141,6 +144,10 @@ body {
     padding: 5px;
 }
 
+.failed {
+    background-color: red;
+}
+
 /* Text and Button Styles */
 .game-section :not(.instructions) p {
     display: flex;
@@ -174,7 +181,6 @@ button:disabled:not(.hex-clicked) {
 /* Outline Styles */
 *:not(.instructions p, .instructions strong, .instructions, body) {
     outline: 1px solid yellow;
-    background-color: black;
 }
 
 * {
