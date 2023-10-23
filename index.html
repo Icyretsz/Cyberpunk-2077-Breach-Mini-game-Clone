@@ -165,7 +165,7 @@
                 rowContents.addEventListener('click', () => {
                     bufferSlots[bufferIndexCount].textContent = rowContents.textContent;
                     chosenHexadecimalsContainer.push(rowContents);
-                    flagChosenHex();
+                    flagChosenHex(rowContents);
                     if (bufferIndexCount === 0 || bufferIndexCount % 2 === 0) {
                         disableAllButtons();
                         for (let d = 0; d < matrixSize; d++) {
@@ -201,10 +201,10 @@
         if (sequence.classList.contains('failed')) return;
 
         let arrayOfHexadecimalsInASequence = getArrayOfHexesInSequence(sequence);
-
+        if (arrayOfHexadecimalsInASequence[sequenceIndexTracker].classList.contains('correctly-chosen-hex'))
         for (let k = 0; k < arrayOfHexadecimalsInASequence.length; k++) {
             if (k === sequenceIndexTracker) {
-                if (arrayOfHexadecimalsInASequence[k].classList.contains('correctly-chose-hex')) {
+                if (arrayOfHexadecimalsInASequence[k].classList.contains('correctly-chosen-hex')) {
                     return; // The currently clicked hex is correctly chosen, do not mark as failed
                 }
             } else {
@@ -292,18 +292,16 @@
         }
     }
 
-    function flagChosenHex() {
-        for (let i = 0; i < chosenHexadecimalsContainer.length; i++) {
-            chosenHexadecimalsContainer[i].className = `chosen-hexadecimals`;
+    function flagChosenHex(rowContents) {
+            rowContents.className = `chosen-hexadecimals`;
         }
-    }
 
     function compareClickedHexadecimalsToSequence(sequenceIndexTracker, sequence) {
         let hexInSequenceArray = getArrayOfHexesInSequence(sequence);
         if (sequence.classList.contains('failed')) return sequenceIndexTracker;
         if (sequenceIndexTracker < hexInSequenceArray.length) {
             if (chosenHexadecimalsContainer[bufferIndexCount].textContent === hexInSequenceArray[sequenceIndexTracker].textContent) {
-                hexInSequenceArray[sequenceIndexTracker].className = `correctly-chose-hex`;
+                hexInSequenceArray[sequenceIndexTracker].className = `correctly-chosen-hex`;
                 sequenceIndexTracker++;
             }
         }

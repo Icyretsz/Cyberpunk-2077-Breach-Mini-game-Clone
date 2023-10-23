@@ -157,12 +157,12 @@ body {
     justify-content: center;
 }
 
-.correctly-chose-hex {
+.correctly-chosen-hex {
     color: yellow;
     font-weight: bold;
 }
 
-button:disabled:not(.hex-clicked) {
+button:disabled:not(.chosen-hexadecimals) {
     color: red;
 }
 
