@@ -166,12 +166,8 @@ button:disabled:not(.hex-clicked) {
     color: red;
 }
 
-.hex-clicked {
+.chosen-hexadecimals {
     color: black
-}
-
-.correctly-hovered {
-    color: blue;
 }
 
 .game-section .section-left .results-container p {

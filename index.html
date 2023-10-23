@@ -98,8 +98,8 @@
     const resultContainer = document.querySelector(".results-container");
     let bufferSlots = [];
     let matrixSize = 0;
-    let hexInMatrix = [];
-    let hexClickedBox = [];
+    let matrixOfAllHexadecimals = [];
+    let chosenHexadecimalsContainer = [];
     let bufferIndexCount = 0;
     let sequence1IndexTracker = 0;
     let sequence2IndexTracker = 0;
@@ -107,28 +107,28 @@
     let startedFlag = 0;
 
 
-    function randomTwoDigitHexArray(count) {
+    function generateArrayOfTwoDigitsHexadecimals(count) {
         const hexChars = "0123456789ABCDEF";
-        let hexArray = [];
+        let arrayOfHexadecimals = [];
 
         for (let j = 0; j < count; j++) {
             let hex = "";
             for (let i = 0; i < 2; i++) {
                 hex += hexChars[Math.floor(Math.random() * 16)];
             }
-            hexArray.push(hex);
+            arrayOfHexadecimals.push(hex);
         }
-        return hexArray;
+        return arrayOfHexadecimals;
     }
 
     function sequenceFill(size, sequence) {
-        let hexArray = randomTwoDigitHexArray(size);
-        for (let i = 0; i < hexArray.length; i++) {
+        let arrayOfHexadecimals = generateArrayOfTwoDigitsHexadecimals(size);
+        for (let i = 0; i < arrayOfHexadecimals.length; i++) {
             let hex = document.createElement('p');
             sequence.appendChild(hex);
-            hex.textContent = `${hexArray[i]}`;
+            hex.textContent = `${arrayOfHexadecimals[i]}`;
         }
-        return hexArray;
+        return arrayOfHexadecimals;
     }
 
     function createBufferSlot() {
@@ -149,50 +149,50 @@
 
     function coreMatrixMechanic() {
         //Creating the matrix
-        let hexArray = getAllHexInSequencesArray();
-        matrixSize = getMatrixSize();
+        let arrayOfAllHexadecimalsInSequencesArray = getArrayOfAllHexadecimalsInSequencesArray();
+        matrixSize = getHexMatrixSize();
         for (let i = 0; i < matrixSize; i++) {
             let row = document.createElement('div');
             matrixContainer.appendChild(row);
-            let matrixRow = [];
+            let matrixOfHexadecimalsRows = [];
             for (let j = 0; j < matrixSize; j++) {
-                let rowContent = document.createElement('button');
-                row.appendChild(rowContent);
-                let index = Math.floor(Math.random() * hexArray.length)
-                rowContent.textContent = `${hexArray[index].textContent}`;
-                rowContent.className = `matrixBTN-${i}-${j}`;
-                //highlightHoveredHex(rowContent);
-                rowContent.addEventListener('click', () => {
-                    bufferSlots[bufferIndexCount].textContent = rowContent.textContent;
-                    hexClickedBox.push(rowContent);
-                    flagClickedHex();
+                let rowContents = document.createElement('button');
+                row.appendChild(rowContents);
+                let index = Math.floor(Math.random() * arrayOfAllHexadecimalsInSequencesArray.length)
+                rowContents.textContent = `${arrayOfAllHexadecimalsInSequencesArray[index].textContent}`;
+                rowContents.className = `matrixBTN-${i}-${j}`;
+                //handle hexadecimal buttons when chosen
+                rowContents.addEventListener('click', () => {
+                    bufferSlots[bufferIndexCount].textContent = rowContents.textContent;
+                    chosenHexadecimalsContainer.push(rowContents);
+                    flagChosenHex();
                     if (bufferIndexCount === 0 || bufferIndexCount % 2 === 0) {
-                        blockAllBTN();
+                        disableAllButtons();
                         for (let d = 0; d < matrixSize; d++) {
                             if (d === i) continue;
-                            if (hexInMatrix[d][j].className === 'hex-clicked') continue;
-                            hexInMatrix[d][j].disabled = false;
+                            if (matrixOfAllHexadecimals[d][j].className === 'chosen-hexadecimals') continue;
+                            matrixOfAllHexadecimals[d][j].disabled = false;
                         }
                     } else if (bufferIndexCount === 1 || bufferIndexCount % 2 !== 0) {
-                        blockAllBTN();
+                        disableAllButtons();
                         for (let e = 0; e < matrixSize; e++) {
                             if (e === j) continue;
-                            if (hexInMatrix[i][e].className === 'hex-clicked') continue;
-                            hexInMatrix[i][e].disabled = false;
+                            if (matrixOfAllHexadecimals[i][e].className === 'chosen-hexadecimals') continue;
+                            matrixOfAllHexadecimals[i][e].disabled = false;
                         }
                     }
-                    sequence1IndexTracker = compareClickToSequence(sequence1IndexTracker, sequence1);
-                    sequence2IndexTracker = compareClickToSequence(sequence2IndexTracker, sequence2);
-                    sequence3IndexTracker = compareClickToSequence(sequence3IndexTracker, sequence3);
+                    sequence1IndexTracker = compareClickedHexadecimalsToSequence(sequence1IndexTracker, sequence1);
+                    sequence2IndexTracker = compareClickedHexadecimalsToSequence(sequence2IndexTracker, sequence2);
+                    sequence3IndexTracker = compareClickedHexadecimalsToSequence(sequence3IndexTracker, sequence3);
                     sequenceCheck(sequence1IndexTracker, sequence1);
                     sequenceCheck(sequence2IndexTracker, sequence2);
                     sequenceCheck(sequence3IndexTracker, sequence3);
                     bufferIndexCount++;
                     if (bufferIndexCount === bufferSlots.length) maxBufferExceeded();
                 });
-                matrixRow.push(rowContent);
+                matrixOfHexadecimalsRows.push(rowContents);
             }
-            hexInMatrix.push(matrixRow);
+            matrixOfAllHexadecimals.push(matrixOfHexadecimalsRows);
         }
         disableBTNExceptFirstRow();
     }
@@ -200,54 +200,58 @@
     function sequenceCheck(sequenceIndexTracker, sequence) {
         if (sequence.classList.contains('failed')) return;
 
-        let sequenceArray = getHexInSequenceArray(sequence);
-        if (sequenceArray[sequenceIndexTracker].classList.contains('correctly-chose-hex')) return;
-        for (let hex of sequenceArray) {
-            let hexFound = false;
+        let arrayOfHexadecimalsInASequence = getArrayOfHexesInSequence(sequence);
 
-            for (let i = 0; i < matrixSize; i++) {
-                for (let j = 0; j < matrixSize; j++) {
-                    if (!hexInMatrix[i][j].classList.contains('hex-clicked') &&
-                        hexInMatrix[i][j].textContent === hex.textContent) {
-                        hexFound = true;
-                        break;
-                    }
+        for (let k = 0; k < arrayOfHexadecimalsInASequence.length; k++) {
+            if (k === sequenceIndexTracker) {
+                if (arrayOfHexadecimalsInASequence[k].classList.contains('correctly-chose-hex')) {
+                    return; // The currently clicked hex is correctly chosen, do not mark as failed
                 }
-                if (hexFound) break;
-            }
-
-            if (!hexFound) {
-                sequence.classList.add('failed');
-                break;
+            } else {
+                let hexFound = false;
+                for (let i = 0; i < matrixSize; i++) {
+                    for (let j = 0; j < matrixSize; j++) {
+                        if (matrixOfAllHexadecimals[i][j].classList.contains('chosen-hexadecimals')) continue;
+                        if (matrixOfAllHexadecimals[i][j].textContent === arrayOfHexadecimalsInASequence[k].textContent) {
+                            hexFound = true;
+                            break;
+                        }
+                    }
+                    if (hexFound) break;
+                }
+                if (!hexFound) {
+                    sequence.classList.add('failed');
+                    break;
+                }
             }
         }
     }
 
 
 
-    function failedSequenceClassNameReset() {
+    function resetFailedSequences() {
         sequence1.classList.remove('failed');
         sequence2.classList.remove('failed');
         sequence3.classList.remove('failed');
     }
 
-    function getHexInSequenceArray(sequence) {
-        let hexes = [];
+    function getArrayOfHexesInSequence(sequence) {
+        let arrayOfHexadecimals = [];
         sequence.querySelectorAll('p').forEach(p => {
-            hexes.push(p);
+            arrayOfHexadecimals.push(p);
         });
-        return hexes;
+        return arrayOfHexadecimals;
     }
 
-    function getAllHexInSequencesArray() {
-        let hexArray = [];
-        hexArray = hexArray.concat(getHexInSequenceArray(sequence1));
-        hexArray = hexArray.concat(getHexInSequenceArray(sequence2));
-        hexArray = hexArray.concat(getHexInSequenceArray(sequence3));
-        return hexArray;
+    function getArrayOfAllHexadecimalsInSequencesArray() {
+        let arrayOfHexadecimals = [];
+        arrayOfHexadecimals = arrayOfHexadecimals.concat(getArrayOfHexesInSequence(sequence1));
+        arrayOfHexadecimals = arrayOfHexadecimals.concat(getArrayOfHexesInSequence(sequence2));
+        arrayOfHexadecimals = arrayOfHexadecimals.concat(getArrayOfHexesInSequence(sequence3));
+        return arrayOfHexadecimals;
     }
 
-    function getMatrixSize() {
+    function getHexMatrixSize() {
         let sequenceLengths = [sequence1.querySelectorAll('p').length
             , sequence2.querySelectorAll('p').length
             , sequence3.querySelectorAll('p').length];
@@ -258,20 +262,20 @@
     function disableBTNExceptFirstRow() {
         for (let i = 0; i < matrixSize; i++) {
             for (let j = 0; j < matrixSize; j++) {
-                hexInMatrix[i][j].addEventListener('mouseover', () => {
+                matrixOfAllHexadecimals[i][j].addEventListener('mouseover', () => {
                     if (bufferIndexCount === 0) {
                         for (let k = 1; k < matrixSize; k++) {
                             for (let a = 0; a < matrixSize; a++) {
-                                hexInMatrix[k][a].disabled = true;
+                                matrixOfAllHexadecimals[k][a].disabled = true;
                             }
                         }
                     }
                 })
-                hexInMatrix[i][j].addEventListener('mouseout', () => {
+                matrixOfAllHexadecimals[i][j].addEventListener('mouseout', () => {
                     if (bufferIndexCount === 0) {
                         for (let k = 0; k < matrixSize; k++) {
                             for (let a = 0; a < matrixSize; a++) {
-                                hexInMatrix[k][a].disabled = false;
+                                matrixOfAllHexadecimals[k][a].disabled = false;
                             }
                         }
                     }
@@ -280,25 +284,25 @@
         }
     }
 
-    function blockAllBTN() {
+    function disableAllButtons() {
         for (let b = 0; b < matrixSize; b++) {
             for (let c = 0; c < matrixSize; c++) {
-                hexInMatrix[b][c].disabled = true;
+                matrixOfAllHexadecimals[b][c].disabled = true;
             }
         }
     }
 
-    function flagClickedHex() {
-        for (let i = 0; i < hexClickedBox.length; i++) {
-            hexClickedBox[i].className = `hex-clicked`;
+    function flagChosenHex() {
+        for (let i = 0; i < chosenHexadecimalsContainer.length; i++) {
+            chosenHexadecimalsContainer[i].className = `chosen-hexadecimals`;
         }
     }
 
-    function compareClickToSequence(sequenceIndexTracker, sequence) {
-        let hexInSequenceArray = getHexInSequenceArray(sequence);
+    function compareClickedHexadecimalsToSequence(sequenceIndexTracker, sequence) {
+        let hexInSequenceArray = getArrayOfHexesInSequence(sequence);
         if (sequence.classList.contains('failed')) return sequenceIndexTracker;
         if (sequenceIndexTracker < hexInSequenceArray.length) {
-            if (hexClickedBox[bufferIndexCount].textContent === hexInSequenceArray[sequenceIndexTracker].textContent) {
+            if (chosenHexadecimalsContainer[bufferIndexCount].textContent === hexInSequenceArray[sequenceIndexTracker].textContent) {
                 hexInSequenceArray[sequenceIndexTracker].className = `correctly-chose-hex`;
                 sequenceIndexTracker++;
             }
@@ -309,19 +313,19 @@
     function maxBufferExceeded() {
         let anySequenceCompleted = false;
         alert(`Game Over!`);
-        if (sequence1IndexTracker === getHexInSequenceArray(sequence1).length) {
+        if (sequence1IndexTracker === getArrayOfHexesInSequence(sequence1).length) {
             let result1 = document.createElement('p');
             resultContainer.appendChild(result1);
             result1.textContent = `You have completed sequence 1`;
             anySequenceCompleted = true;
         }
-        if (sequence2IndexTracker === getHexInSequenceArray(sequence2).length) {
+        if (sequence2IndexTracker === getArrayOfHexesInSequence(sequence2).length) {
             let result2 = document.createElement('p');
             resultContainer.appendChild(result2);
             result2.textContent = `You have completed sequence 2`;
             anySequenceCompleted = true;
         }
-        if (sequence3IndexTracker === getHexInSequenceArray(sequence3).length) {
+        if (sequence3IndexTracker === getArrayOfHexesInSequence(sequence3).length) {
             let result3 = document.createElement('p');
             resultContainer.appendChild(result3);
             result3.textContent = `You have completed sequence 3`;
@@ -331,7 +335,7 @@
         if (!anySequenceCompleted) {
             alert(`Failed!`);
         }
-        blockAllBTN();
+        disableAllButtons();
     }
 
     startButton.addEventListener("click", () => {
@@ -356,12 +360,12 @@
         matrixDiv.forEach(div => div.remove());
         matrixP.forEach(p => p.remove());
         results.forEach(p => p.remove());
-        failedSequenceClassNameReset();
+        resetFailedSequences();
         startedFlag = 0;
         bufferSlots = [];
-        hexInMatrix = [];
+        matrixOfAllHexadecimals = [];
         bufferIndexCount = 0;
-        hexClickedBox = [];
+        chosenHexadecimalsContainer = [];
         sequence1IndexTracker = 0;
         sequence2IndexTracker = 0;
         sequence3IndexTracker = 0;
