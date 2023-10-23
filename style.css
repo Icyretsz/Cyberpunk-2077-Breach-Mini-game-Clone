@@ -1,39 +1,65 @@
-* :not(.instructions p, .instructions strong) {
-    outline: 1px solid red;
-}
-
+/* General Styles */
 body {
     display: flex;
-    gap: 30px;
     flex-direction: column;
+    gap: 30px;
 }
 
-.game-section   {
+.game-section {
     display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 42%;
+    height: auto;
+    overflow-y: auto;
+    z-index: 1;
+    margin: 10px;
+    align-items: center;
 }
 
-.section-left, .section-right {
+.instructions {
+    width: 40%;
+    height: auto;
     display: flex;
+    flex-direction: column;
+    padding: 5px;
+    align-self: flex-end;
+    margin-right: 250px;
+    color: white;
+}
+
+/* Section Styles */
+.section-left,
+.section-right,
+#startBtn,
+#resetBtn {
+    position: sticky;
+    top: 0;
+}
+
+.section-left,
+.section-right {
+    display: flex;
+    height: 700px;
 }
 
 .section-left {
     width: 350px;
-    height: 700px;
-    display: flex;
     flex-direction: column;
 }
 
 .section-right {
     min-width: 400px;
-    display: flex;
-    height: 700px;
     flex-direction: column;
 }
 
-#startBtn, #resetBtn {
+#startBtn,
+#resetBtn {
     height: 700px;
 }
 
+/* Timer Section */
 .time-container {
     display: flex;
     gap: 100px;
@@ -48,12 +74,13 @@ body {
     width: 45px;
 }
 
+/* Matrix Section */
 .matrix-main {
     display: flex;
     justify-content: center;
 }
 
-.matrix-container   {
+.matrix-container {
     width: 350px;
     height: 350px;
     display: flex;
@@ -61,10 +88,9 @@ body {
     justify-content: center;
     align-items: center;
     gap: 10px;
-
 }
 
-.matrix-container div   {
+.matrix-container div {
     width: 350px;
     height: 35px;
     display: flex;
@@ -73,14 +99,26 @@ body {
     align-items: center;
 }
 
+.matrix-container button {
+    width: 35px;
+    height: 35px;
+}
+
+.matrix {
+    width: 250px;
+    height: auto;
+}
+
+/* Buffer Section */
 .buffer-container {
     display: flex;
-    padding: 5px 5px 5px 10px;
     gap: 10px;
+    padding: 5px 5px 5px 10px;
     height: 35px;
     align-items: center;
 }
 
+/* Sequence Section */
 .sequence-main {
     display: flex;
     flex-direction: column;
@@ -93,7 +131,9 @@ body {
     gap: 10px;
 }
 
-.sequence-1, .sequence-2, .sequence-3 {
+.sequence-1,
+.sequence-2,
+.sequence-3 {
     height: 35px;
     display: flex;
     gap: 10px;
@@ -101,6 +141,7 @@ body {
     padding: 5px;
 }
 
+/* Text and Button Styles */
 .game-section :not(.instructions) p {
     display: flex;
     width: 35px;
@@ -109,54 +150,35 @@ body {
     justify-content: center;
 }
 
-.matrix-container button {
-    width: 35px;
-    height: 35px;
-}
-
-.correctly-chose-hex   {
-    color: darkgreen;
+.correctly-chose-hex {
+    color: yellow;
     font-weight: bold;
 }
 
-.hex-clicked    {
-    color: #EFEFEF4D;
+button:disabled:not(.hex-clicked) {
+    color: red;
+}
+
+.hex-clicked {
+    color: black
+}
+
+.correctly-hovered {
+    color: blue;
 }
 
 .game-section .section-left .results-container p {
     width: 350px;
 }
 
-.instructions {
-    padding: 5px;
+/* Outline Styles */
+*:not(.instructions p, .instructions strong, .instructions, body) {
+    outline: 1px solid yellow;
+    background-color: black;
 }
 
-.game-section {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    z-index: 1;
+* {
+    color: white;
 }
-
-.instructions {
-    position: static;
-}
-
-.section-left,
-.section-right,
-#startBtn,
-#resetBtn {
-    position: sticky;
-    top: 0;
-}
-
-
-
-
-
-
 
 

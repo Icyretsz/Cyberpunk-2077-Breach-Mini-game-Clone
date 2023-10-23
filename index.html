@@ -34,54 +34,54 @@
 
     <button id="startBtn">START</button>
     <button id="resetBtn">RESET</button>
-    <div class="instructions">
-        <p>How to play:</p>
-        <p>1.	The sequences: the game will generate random 2-digits hexadecimal values and arrange them into
-            <strong>sequences</strong>. There will be 3 sequences:</p>
-        <p>Sequence 1: 2 hexadecimals.</p>
-        <p>Sequence 2: 2 to 3 hexadecimals.</p>
-        <p>Sequence 3: 3 to 4 hexadecimals.</p>
-        <img src="./pictures/1.png" alt="the sequences">
-        <p>The matrix: from those 3 sequences, a matrix <strong>that comprise the hexadecimals that the sequences contain
-            will be generated</strong>. The size of the matrix will be determined by <strong>summing the number of
-            hexadecimals</strong> contained in sequence1 and sequence2.</p>
-        <img src="./pictures/2.png" alt="the matrix">
-        <p>The buffer: the buffer will be created, the number of slots in the buffer
-            is equal to <strong>the total of hexadecimals</strong> initially created.</p>
-        <img src="./pictures/3.png" alt="the buffer">
-        <p>You will have to <strong>select a hexadecimal</strong> in the matrix that <strong>matches</strong>
-            the hexadecimal in one (or many) sequence.
-            You can only choose <strong>one</strong> hexadecimal at a time.</p>
-        <p>On your first move, you will only be allowed to choose the hexadecimals on the <strong>first
-            row</strong>.</p>
-        <p>Each time a correct hexadecimal is selected, the corresponding hexadecimal in the sequences
-            will <strong>change color</strong> to indicate correct choice. Additionally, the selected hexadecimal will be
-            <strong>disabled</strong> for <strong>the rest of the game</strong>. For example, I
-            chose <strong>CD</strong>.</p>
-        <img src="./pictures/4.png" alt="instruction">
-        <p>After the first move, you will be allowed to choose the hexadecimals <strong>in the column below
-            the first</strong>.
-            All other unrelated hexadecimals will be <strong>temporary disabled</strong> so that you can’t
-            click on them.</p>
-        <img src="./pictures/5.png" alt="instruction">
-        <p>Then on the second move, when you click on a hexadecimal, the same thing happens just like on the
-            first move. But there’s a catch! This time you will only be allowed to choose the hexadecimals
-            <strong>on the same column</strong> as the hexadecimal you previously chose. For example, I chose
-            <strong>62</strong>.</p>
-        <p>Remember to also check on the <strong>buffer limit</strong>, you are only permitted to choose up to
-            the buffer limit.
-            In this case, you can choose <strong>7 hexadecimals</strong> before the game ends. By this time, we have
-            finished <strong>sequence 1</strong>!</p>
-        <img src="./pictures/6.png" alt="instruction">
-        <p>And the cycle continues. Summarize: on the first move, you can choose <strong>horizontally</strong>,
-            to the next,
-            you can choose <strong>vertically</strong>, then <strong>horizontally</strong> again,...</p>
-        <img src="./pictures/7.png" alt="instruction">
-        <p>Keep repeating until you complete one (or many) sequences. Unfortunately I can only complete
-            <strong>sequence 1</strong>.</p>
-        <img src="./pictures/8.png" alt="instruction">
+</div>
+<div class="instructions">
+    <p><strong>HOW TO PLAY</strong></p>
+    <p>1. The sequences: the game will generate random 2-digits hexadecimal values and arrange them into
+        <strong>sequences</strong>. There will be 3 sequences:</p>
+    <p>Sequence 1: 2 hexadecimals.</p>
+    <p>Sequence 2: 2 to 3 hexadecimals.</p>
+    <p>Sequence 3: 3 to 4 hexadecimals.</p>
+    <img src="./pictures/1.png" alt="the sequences">
+    <p>The matrix: from those 3 sequences, a matrix <strong>that comprise the hexadecimals that the sequences contain
+        will be generated</strong>. The size of the matrix will be determined by <strong>summing the number of
+        hexadecimals</strong> contained in sequence1 and sequence2.</p>
+    <img src="./pictures/2.png" alt="the matrix" class="matrix">
+    <p>The buffer: the buffer will be created, the number of slots in the buffer
+        is equal to <strong>the total of hexadecimals</strong> initially created.</p>
+    <img src="./pictures/3.png" alt="the buffer">
+    <p>You will have to <strong>select a hexadecimal</strong> in the matrix that <strong>matches</strong>
+        the hexadecimal in one (or many) sequence.
+        You can only choose <strong>one</strong> hexadecimal at a time.</p>
+    <p>On your first move, you will only be allowed to choose the hexadecimals on the <strong>first
+        row</strong>.</p>
+    <p>Each time a correct hexadecimal is selected, the corresponding hexadecimal in the sequences
+        will <strong>change color</strong> to indicate correct choice. Additionally, the selected hexadecimal will be
+        <strong>disabled</strong> for <strong>the rest of the game</strong>. For example, I
+        chose <strong>CD</strong>.</p>
+    <img src="./pictures/4.png" alt="instruction">
+    <p>After the first move, you will be allowed to choose the hexadecimals <strong>in the column below
+        the first</strong>.
+        All other unrelated hexadecimals will be <strong>temporary disabled</strong> so that you can’t
+        click on them.</p>
+    <img src="./pictures/5.png" alt="instruction">
+    <p>Then on the second move, when you click on a hexadecimal, the same thing happens just like on the
+        first move. But there’s a catch! This time you will only be allowed to choose the hexadecimals
+        <strong>on the same column</strong> as the hexadecimal you previously chose. For example, I chose
+        <strong>62</strong>.</p>
+    <p>Remember to also check on the <strong>buffer limit</strong>, you are only permitted to choose up to
+        the buffer limit.
+        In this case, you can choose <strong>7 hexadecimals</strong> before the game ends. By this time, we have
+        finished <strong>sequence 1</strong>!</p>
+    <img src="./pictures/6.png" alt="instruction">
+    <p>And the cycle continues. Summarize: on the first move, you can choose <strong>horizontally</strong>,
+        to the next,
+        you can choose <strong>vertically</strong>, then <strong>horizontally</strong> again,...</p>
+    <img src="./pictures/7.png" alt="instruction">
+    <p>Keep repeating until you complete one (or many) sequences. Unfortunately I can only complete
+        <strong>sequence 1</strong>.</p>
+    <img src="./pictures/8.png" alt="instruction">
 
-    </div>
 </div>
 
 </body>
@@ -138,7 +138,7 @@
         let sequence1Array = sequenceFill(sequence1Size, sequence1);
         let sequence2Array = sequenceFill(sequence2Size, sequence2);
         let sequence3Array = sequenceFill(sequence3Size, sequence3);
-        let bufferSize = sequence1Array.length + sequence2Array.length + sequence3Array.length;
+        let bufferSize = sequence1Array.length + sequence2Array.length + sequence3Array.length +2;
         for (let i = 0; i < bufferSize; i++) {
             const buffer = document.createElement('p');
             bufferContainer.appendChild(buffer);
@@ -161,6 +161,7 @@
                 let index = Math.floor(Math.random() * hexArray.length)
                 rowContent.textContent = `${hexArray[index].textContent}`;
                 rowContent.className = `matrixBTN-${i}-${j}`;
+                //highlightHoveredHex(rowContent);
                 //Handle when buttons are clicked
                 rowContent.addEventListener('click', () => {
                     bufferSlots[bufferIndexCount].textContent = rowContent.textContent;
@@ -187,12 +188,43 @@
                     bufferIndexCount++;
                     if (bufferIndexCount === bufferSlots.length) maxBufferExceeded();
                 });
+                rowContent.addEventListener('mouseover', () =>{
+
+                })
                 matrixRow.push(rowContent);
             }
             hexInMatrix.push(matrixRow);
         }
         disableBTNExceptFirstRow();
     }
+
+    /*function highlightHoveredHex(rowContent) {
+        let hexInSequence1Array = getHexInSequenceArray(sequence1);
+        let hexInSequence2Array = getHexInSequenceArray(sequence2);
+        let hexInSequence3Array = getHexInSequenceArray(sequence3);
+        let sequenceIndexTracker = returnCurrentIndex();
+        rowContent.addEventListener('mouseover', () => {
+            if (rowContent.textContent === hexInSequence1Array[sequenceIndexTracker[1]].textContent)    {
+                hexInSequence1Array[sequenceIndexTracker[1]].classList.add('correctly-hovered');
+            }
+            if (rowContent.textContent === hexInSequence2Array[sequenceIndexTracker[2]].textContent)    {
+                hexInSequence2Array[sequenceIndexTracker[2]].classList.add('correctly-hovered');
+            }
+            if (rowContent.textContent === hexInSequence3Array[sequenceIndexTracker[3]].textContent)    {
+                hexInSequence3Array[sequenceIndexTracker[3]].classList.add('correctly-hovered');
+            }
+        });
+        rowContent.addEventListener('mouseout', () => {
+            hexInSequence1Array[sequenceIndexTracker[1]].classList.remove('correctly-hovered');
+            hexInSequence2Array[sequenceIndexTracker[2]].classList.remove('correctly-hovered');
+            hexInSequence3Array[sequenceIndexTracker[3]].classList.remove('correctly-hovered');
+        })
+    }*/
+
+    function returnCurrentIndex()   {
+        return [sequence1IndexTracker, sequence2IndexTracker, sequence3IndexTracker];
+    }
+
 
     function getHexInSequenceArray(sequence) {
         let hexes = [];
@@ -251,20 +283,21 @@
         }
     }
 
-    function flagClickedHex()    {
-        for (let i = 0; i < hexClickedBox.length; i++)  {
+    function flagClickedHex() {
+        for (let i = 0; i < hexClickedBox.length; i++) {
             hexClickedBox[i].className = `hex-clicked`;
         }
     }
 
-    function compareClickToSequence(sequenceIndexTracker, sequence)   {
+    function compareClickToSequence(sequenceIndexTracker, sequence) {
         let hexInSequenceArray = getHexInSequenceArray(sequence);
-        if (sequenceIndexTracker < hexInSequenceArray.length)  {
-            if (hexClickedBox[bufferIndexCount].textContent === hexInSequenceArray[sequenceIndexTracker].textContent)    {
+        if (sequenceIndexTracker < hexInSequenceArray.length) {
+            if (hexClickedBox[bufferIndexCount].textContent === hexInSequenceArray[sequenceIndexTracker].textContent) {
                 hexInSequenceArray[sequenceIndexTracker].className = `correctly-chose-hex`;
                 sequenceIndexTracker++
             }
-        } return sequenceIndexTracker;
+        }
+        return sequenceIndexTracker;
     }
 
     function maxBufferExceeded() {
@@ -292,6 +325,7 @@
         if (!anySequenceCompleted) {
             alert(`Failed!`);
         }
+        blockAllBTN();
     }
 
     startButton.addEventListener("click", () => {
