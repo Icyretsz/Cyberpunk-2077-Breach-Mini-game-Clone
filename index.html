@@ -313,6 +313,7 @@
 
     function compareClickToSequence(sequenceIndexTracker, sequence) {
         let hexInSequenceArray = getHexInSequenceArray(sequence);
+        if (sequence.classList.contains('failed')) return sequenceIndexTracker;
         if (sequenceIndexTracker < hexInSequenceArray.length) {
             if (hexClickedBox[bufferIndexCount].textContent === hexInSequenceArray[sequenceIndexTracker].textContent) {
                 hexInSequenceArray[sequenceIndexTracker].className = `correctly-chose-hex`;
